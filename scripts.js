@@ -11,7 +11,7 @@ var wianCurrentCaption = 0
 var gwPrevCaption = -1;
 var gwCurrentCaption = 0
 var alreadyEnlarged = []
-var increase = 70;
+var increase = 80;
 
 window.addEventListener("scroll", function(){
     animateUnderline();
@@ -34,13 +34,13 @@ function animateUnderline() {
 function animateExpandingImages() {
     for(let x=0; x<expandingImages.length; x++) { 
         var expandingImg = expandingImages[x].getBoundingClientRect();
-        if(expandingImg.top < window.innerHeight/1.5 && expandingImg.bottom > 0 && increase<=100 && !alreadyEnlarged.includes(x)) {
+        if(expandingImg.top < window.innerHeight && expandingImg.bottom > 0 && increase<=100 && !alreadyEnlarged.includes(x)) {
                 expandingImages[x].style["width"] = increase.toString() + "%";
                 increase += 0.5;
         }
         if(increase > 100) {
             alreadyEnlarged.push(x);
-            increase = 70;
+            increase = 80;
         }
     }
 }
