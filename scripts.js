@@ -1,23 +1,25 @@
 var wianScrollImages = document.querySelectorAll(".wian .image_stack_container_image");
 var wianScrollCaptions = document.querySelectorAll(".wian .image_stack_container_caption");
-var gwScrollImages = document.querySelectorAll(".greatwork .image_stack_container_image");
-var gwScrollCaptions = document.querySelectorAll(".greatwork .image_stack_container_caption_content");
-var underlines = document.querySelectorAll(".underline_path");
-var expandingImages = document.querySelectorAll(".exp_img");
-var gwVisibleImages = [0]
 var wianVisibleImages = [0]
 var wianPrevCaption = -1;
 var wianCurrentCaption = 0
+var gwScrollImages = document.querySelectorAll(".greatwork .image_stack_container_image");
+var gwScrollCaptions = document.querySelectorAll(".greatwork .image_stack_container_caption");
+var gwVisibleImages = [0]
 var gwPrevCaption = -1;
 var gwCurrentCaption = 0
+var wianVariables = [wianScrollImages, wianScrollCaptions, wianVisibleImages, wianCurrentCaption, wianPrevCaption];
+var gwVariables = [gwScrollImages, gwScrollCaptions, gwVisibleImages, gwCurrentCaption, gwPrevCaption];
+var underlines = document.querySelectorAll(".underline_path");
+var expandingImages = document.querySelectorAll(".exp_img");
 var alreadyEnlarged = []
 var increase = 80;
 
 window.addEventListener("scroll", function(){
     animateUnderline();
     animateExpandingImages();
-    animateWianScrollImages();
-    animateGWScrollCaptions();
+    animateStackImages(wianVariables);
+    animateStackImages(gwVariables);
 });
 
 function animateUnderline() {
@@ -45,7 +47,7 @@ function animateExpandingImages() {
     }
 }
 
-function animateGWScrollCaptions() {
+/*function animateGWScrollCaptions() {
     for(let x=0; x< gwScrollCaptions.length; x++) {
         var caption = gwScrollCaptions[x].getBoundingClientRect();
         if(caption.bottom < window.innerHeight && !gwVisibleImages.includes(x)) {
@@ -60,23 +62,23 @@ function animateGWScrollCaptions() {
         gwCurrentCaption = gwVisibleImages[gwVisibleImages.length-1];
         changeImageCaption(gwCurrentCaption, gwPrevCaption, gwScrollImages);
     }
-}
+}*/
 
-function animateWianScrollImages() {
-    for(let x=0; x<wianScrollImages.length; x++) {
-        var image = wianScrollImages[x].getBoundingClientRect();
-        if(image.bottom < window.innerHeight+50 && !wianVisibleImages.includes(x)) {
-            wianVisibleImages.push(x);
-            wianVisibleImages = wianVisibleImages.sort(function (a, b) {  return a - b;  });
+function animateStackImages(sectionVariables) {
+    for(let x=0; x< sectionVariables[0].length; x++) {
+        var image = sectionVariables[0][x].getBoundingClientRect();
+        if(image.bottom < window.innerHeight+50 && !sectionVariables[2].includes(x)) {
+            sectionVariables[2].push(x);
+            sectionVariables[2] = sectionVariables[2].sort(function (a, b) {  return a - b;  });
         }
-        else if(image.bottom >= window.innerHeight+50 && wianVisibleImages.includes(x)) {
-            wianVisibleImages.pop();
+        else if(image.bottom >= window.innerHeight+50 && sectionVariables[2].includes(x)) {
+            sectionVariables[2].pop();
         }
     }
-    if(wianCurrentCaption != wianVisibleImages[wianVisibleImages.length-1] && wianVisibleImages.length!=0) {
-        wianPrevCaption = wianCurrentCaption;
-        wianCurrentCaption = wianVisibleImages[wianVisibleImages.length-1];
-        changeImageCaption(wianCurrentCaption, wianPrevCaption, wianScrollCaptions);
+    if(sectionVariables[3] != sectionVariables[2][sectionVariables[2].length-1] && sectionVariables[2].length!=0) {
+        sectionVariables[4] = sectionVariables[3];
+        sectionVariables[3] = sectionVariables[2][sectionVariables[2].length-1];
+        changeImageCaption(sectionVariables[3], sectionVariables[4], sectionVariables[1]);
     }
 }
 
@@ -103,10 +105,11 @@ function changeDecadeText() {
     },2000);
 } 
 
+var preloader = document.getElementById("preloader");
 var firstLoad = true;
 
 window.onload = function() {
-    var preloader = document.getElementById("preloader");
+    preloader.style.zIndex = "100000";
     if(!firstLoad) {
         preloader.style.backgroundImage = "url('assets/ML10Preloader.gif?v=" + new Date().valueOf() + "')";
     }
