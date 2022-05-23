@@ -103,9 +103,16 @@ function changeDecadeText() {
     },2000);
 } 
 
+var firstLoad = true;
+
 window.onload = function() {
     var preloader = document.getElementById("preloader");
-    preloader.style.backgroundImage = "url('assets/ML10Preloader.gif?v=" + new Date().valueOf() + "')"
+    if(!firstLoad) {
+        preloader.style.backgroundImage = "url('assets/ML10Preloader.gif?v=" + new Date().valueOf() + "')";
+    }
+    else {
+        firstLoad = false;
+    }
     setTimeout(function(){
         preloader.style.zIndex = "-1";
         changeDecadeText();
