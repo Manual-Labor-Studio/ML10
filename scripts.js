@@ -99,7 +99,7 @@ function changeDecadeText() {
         }
         setTimeout(function(){
             replaceText.classList.remove("decade_fadeIn")
-        }, 1600);
+        }, 1800);
     },2000);
 } 
 
