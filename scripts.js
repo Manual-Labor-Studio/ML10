@@ -86,7 +86,7 @@ function changeImageCaption(idx,prev,change){
 }   
 
 function changeDecadeText() {
-    var decadeText = ["로사리오 염주", "Décennie", "Década", "十年", "Decade"];
+    var decadeText = ["10년", "Décennie", "Década", "十年", "Decade"];
     var replaceText = document.getElementById("decade");
     var textIdx = 0;
     replaceText.classList.add("decade_fadeIn");
@@ -104,5 +104,10 @@ function changeDecadeText() {
 } 
 
 window.onload = function() {
-    changeDecadeText();
+    var preloader = document.getElementById("preloader");
+    preloader.style.backgroundImage = "url('assets/ML10Preloader.gif?v=" + new Date().valueOf() + "')"
+    setTimeout(function(){
+        preloader.style.zIndex = "-1";
+        changeDecadeText();
+    }, 6500);
 };
