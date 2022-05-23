@@ -214,7 +214,7 @@ p {
 }
 
 .wian .image_stack_container_image img {
-    border: 20px solid #FCFAF7;
+    border: 10px solid #FCFAF7;
     filter: drop-shadow(3px 3px 5px #2C333E)
 }
 
@@ -487,6 +487,11 @@ p {
     
     .block {
         margin-left: 100px;
+    }
+
+    .wian .image_stack_container_image img {
+        border: 20px solid #FCFAF7;
+        filter: drop-shadow(3px 3px 5px #2C333E)
     }
 
     .content_container {
