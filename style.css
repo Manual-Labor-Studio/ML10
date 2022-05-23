@@ -209,11 +209,13 @@ p {
 .wian .image_stack_container_caption {
     margin-right: 48px;
     margin-bottom: 30vh;
-}
-
-.wian .image_stack_container_caption {
     top: 30vh;
     margin-top: 20vh;
+}
+
+.wian .image_stack_container_image img {
+    border: 20px solid #FCFAF7;
+    filter: drop-shadow(3px 3px 5px #2C333E)
 }
 
 .greatwork .image_stack_container_caption {
